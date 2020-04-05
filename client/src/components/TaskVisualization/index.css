@@ -1,0 +1,26 @@
+.box-time {
+    display: flex;
+    width: 10%;
+    margin-left: auto;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+
+.hour {
+    border: 1px solid black;
+    height: 50px;
+    /* height: 3.5rem; */
+}
+
+.box-outer {
+    display: flex;
+    margin: auto;
+    position: relative;
+
+}
+.container-tasks {
+    margin-left: 5px;
+    margin-right: auto;
+    
+}

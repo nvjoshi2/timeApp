@@ -9,4 +9,10 @@ export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const CLEAR_TASKS = 'CLEAR_TASKS;'
 
+// saved task types
+export const GET_SAVED_TASKS = 'GET_SAVED_TASKS';
+export const ADD_SAVED_TASK = 'ADD_SAVED_TASK';
+export const DELETE_SAVED_TASK = 'DELETE_SAVED_TASK';
+export const CLEAR_SAVED_TASKS = 'CLEAR_SAVED_TASKS';
+
 

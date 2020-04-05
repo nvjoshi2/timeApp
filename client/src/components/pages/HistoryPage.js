@@ -16,7 +16,7 @@ function HistoryPage(props) {
 
     const history = useHistory()
     if (!isLogged) {
-        history.push('/')
+        history.push('/login')
     }
     const dispatch = useDispatch()
     const credentials = useSelector(state => state.authReducer.credentials);
@@ -32,7 +32,7 @@ function HistoryPage(props) {
 
     //need to
     return(
-        <div>
+        <div className='page-container'>
             <div className="spacer"></div><h1>History</h1><div className = "spacer"></div>
             <Calendar onChange = {onChange}/>
             <TaskList/>

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logIn } from '../../actions/authActions';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import './RegisterPage.css';
 const RegisterPage = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -38,8 +39,27 @@ const RegisterPage = (props) => {
 
     }
     return(
-        <div>
-            <h1>Register</h1>
+        <div className='page-container form-page full-height-grow'>
+            <form className = 'register-form'>
+                <div className = 'input-group'>
+                    <label>Username:</label>
+                    <input type='text' value={username} onChange={handleUsernameChange}/>
+                </div>
+                <div className = 'input-group'>
+                    <label>Email:</label>
+                    <input type='email' value={email} onChange={handleEmailChange}/>
+                </div>
+                <div className = 'input-group'>
+                    <label>Password:</label >
+                    <input type='password' value={password}onChange={handlePasswordChange}/>
+                </div>
+                <div className = 'input-group'>
+                    <button type="button" className = 'join-button' onClick={handleSubmit}>Sign Up</button>
+                </div>
+            </form>
+
+
+            {/* <h1>Register</h1>
             <form onSubmit = {handleSubmit}>
                 <label>
                     username: 
@@ -61,7 +81,7 @@ const RegisterPage = (props) => {
             </form>
             
 
-            <input type="button" value="submit" onClick={handleSubmit}/>
+            <input type="button" value="submit" onClick={handleSubmit}/> */}
         </div>
     )
 }

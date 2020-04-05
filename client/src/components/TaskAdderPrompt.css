@@ -1,0 +1,19 @@
+.task-adder {
+    display: flex;
+    flex-direction: row;
+    /* text-align: left; */
+} 
+
+/* .btn-checkbox-container {
+}
+
+.prompt-item {
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.checkbox {
+    padding:0.6rem 1rem;
+    background-color: #202027;
+    border-radius: 5px;
+} */

@@ -32,25 +32,45 @@ function LoginPage(props) {
     }
 
     return(
-        <div>
-            <h1>Login</h1>
-            <form onSubmit = {handleSubmit}>
-                <label>
-                    username: 
-                    <input type="text" value={state.username} onChange={handleUsernameChange}/>
-                </label>
-            </form>
+        // <div className='page-container'>
+        //     <div className = 'login' style = {{flexGrow:1}}>
+        //     <h1>Login</h1>
+        //     <form >
+        //         <label>
+        //             username: 
+        //             <input type="text" value={state.username} onChange={handleUsernameChange}/>
+        //         </label>
+        //     </form>
 
-            <form onSubmit = {handleSubmit}>
-                <label>
-                    password: 
-                    <input type="password" value={state.password} onChange={handlePasswordChange}/>
-                </label>
-            </form>
+        //     <form >
+        //         <label>
+        //             password: 
+        //             <input type="password" value={state.password} onChange={handlePasswordChange}/>
+        //         </label>
+        //     </form>
+        //     </div>
+
             
 
-            <input type="button" value="submit" onClick={handleSubmit}/>
-            <input type="button" value="register" onClick={() => history.push('/register')}/>
+        //     <input type="button" value="submit" onClick={handleSubmit}/>
+        //     {/* <input type="button" value="register" onClick={() => history.push('/register')}/> */}
+        // </div>
+
+        <div className='page-container form-page full-height-grow'>
+            <form className = 'register-form'>
+                <div className = 'input-group'>
+                    <label>Username:</label>
+                    <input  type='text' value={state.username} onChange={handleUsernameChange}/>
+                </div>
+                <div className = 'input-group'>
+                    <label>Password:</label >
+                    <input  type='password' value={state.password}onChange={handlePasswordChange}/>
+                </div>
+                <div className = 'input-group'>
+                    <button type="button" className = 'join-button' onClick={handleSubmit}>Log In</button>
+                    {/* <button type="button" className = 'dont-button'>DO NOT PRESS</button> */}
+                </div>
+            </form>
         </div>
     )
 }

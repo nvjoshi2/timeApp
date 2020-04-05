@@ -1,0 +1,67 @@
+.current-task-text {
+    height: 4rem;
+}
+
+.timer-active {
+    display: inline-block;
+    text-align: left;
+    font-size: 7rem;
+    position:absolute;
+}
+.timer-inactive {
+    display: inline-block;
+    text-align: left;
+    font-size: 7rem;
+    position:absolute;
+    color: transparent;
+}
+
+
+.timers {
+    position: relative;
+    height: 10rem;
+}
+.break-timer-active {
+    display: inline-block;
+    text-align: left;
+    font-size: 7rem;
+    position: absolute;
+    color: rgb(143, 38, 38);
+}
+.break-timer-inactive {
+    display: inline-block;
+    text-align: left;
+    font-size: 7rem;
+    position: absolute;
+    color: transparent;
+}
+
+.timer-buttons {
+    position: relative;
+    display: flex;
+    
+}
+
+.timer-buttons button {
+    margin-right: 2rem;
+}
+
+.timer-section {
+    /* align-items: center; */
+    display: flex;
+    flex-direction: column;
+}
+
+.task-section {
+
+}
+
+.home-page-body {
+    text-align: left;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: auto;
+}
+

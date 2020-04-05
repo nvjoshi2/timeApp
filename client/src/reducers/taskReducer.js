@@ -2,7 +2,8 @@ import { GET_TASKS, ADD_TASK, DELETE_TASK, TASKS_LOADING, CLEAR_TASKS } from '..
 
 const initialState = {
     tasks: [],
-    loading: false
+    loading: false,
+    tasksLoaded:false
 };
 
 export const taskReducer = (state = initialState, action) => {
@@ -11,7 +12,8 @@ export const taskReducer = (state = initialState, action) => {
             return {
                 ...state,
                 tasks: action.payload,
-                loading: false
+                loading: false,
+                tasksLoaded: true
             }
 
         case ADD_TASK:
@@ -33,7 +35,8 @@ export const taskReducer = (state = initialState, action) => {
             }
         case CLEAR_TASKS:
             return {
-                tasks: []
+                tasks: [],
+                tasksLoaded:false
             }
         default:
             return {...state}

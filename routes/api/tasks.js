@@ -5,30 +5,49 @@ const router = express.Router();
 
 const Task = require('../../models/task');
 
-// @route  GET api/task/:username
+// @route  GET api/tasks/:username
 // @desc   get all tasks for given username
 // @access public
 
 router.get('/:username', (req,res) => {
+    console.log('made get request')
     Task.find({username: String(req.params.username)})
         .then(tasks => res.json(tasks))
 });
 
 
-// @route  POST api/task
+// @route  POST api/tasks
 // @desc   get all tasks for given username
 // @access public
 
 router.post('/', (req,res) => {
+    console.log('made post request')
     const newTask = new Task({
         username: req.body.username,
         taskName: req.body.taskName
     });
+    // Task.find({username: req.body.username, taskName: req.body.taskName})
+    //     .then(tasks => {
+    //         if (tasks.length > 0) {
+    //             res.status(422).json({success: false})
+    //         } else {
+    //             newTask.save()
+    //             .then(task => res.json(task))
+    //             .catch(err => {
+    //                 console.log(err);
+    //             })
+    //         }
+    //     }).catch(err => console.log(err))
+
     newTask.save()
-        .then(task => res.json(task))
+    .then(task => res.json(task))
+    .catch(err => {
+        console.log(err);
+    })
+    
 });
 
-// @route  DELETE api/task/:id
+// @route  DELETE api/tasks/:id
 // @desc   delete task given id
 // @access public
 

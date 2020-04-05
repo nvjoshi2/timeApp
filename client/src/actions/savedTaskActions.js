@@ -18,11 +18,13 @@ export const addSavedTask = (taskData) => dispatch => { //CHANGE: check that res
     axios
         .post('/api/tasks', taskData)
         .then(res => 
+            // console.log('THIS IS WORKING')
+            // console.log('res: ' + res)
             dispatch({
                 type: ADD_SAVED_TASK,
                 payload: res.data
             })
-        )
+        ).catch(err => console.log(err))
 };
 
 export const deleteSavedTask = (id) => dispatch => {

@@ -7,10 +7,9 @@ const TaskSchema = new Schema({
         type: String,
         required: true
     },
-    taskname: {
+    taskName: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     }
 });
 
