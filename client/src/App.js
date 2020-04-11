@@ -9,6 +9,7 @@ import history from './history';
 import NavBar from './components/navbar/Navbar';
 import ToolBar from './components/navbar/Toolbar';
 import LandingPage from './components/pages/LandingPage';
+import SavedTaskPage from './components/pages/SavedTaskPage';
 function App() {
   return (
     <Router history = {history}>
@@ -20,6 +21,7 @@ function App() {
           <Route path='/register' exact component={RegisterPage}/>
           <Route path='/home' exact component={HomePage}/>
           <Route path='/history' exact component={HistoryPage}/>
+          <Route path='/saved-tasks' exact component={SavedTaskPage}/>
           </Switch>
       </div>
     </Router>

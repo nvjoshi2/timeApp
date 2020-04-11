@@ -33,10 +33,12 @@ const Toolbar = props => {
             <div className="toolbar_navigation-items">
                 <ul>
                     {isLogged && <li><Link className={isActive('/home')} to='/home'>Home</Link></li>}
+                    {isLogged && <li><Link className= {isActive('/saved-tasks')} to='/saved-tasks'>Manage Tasks</Link></li>}
                     {isLogged && <li><Link className={isActive('/history')} to='/history'>History</Link></li>}
                     {isLogged && <li><Link className={isActive('/logout')} to='/login'><span onClick={handleLogOut}>Log Out</span></Link></li>}
                     {!isLogged && <li><Link className={isActive('/login')} to='/login'>Log In</Link></li>}
                     {!isLogged && <li><Link className={isActive('/register')} to='/register'>Register</Link></li>}
+
                 </ul>
             </div>
         </nav>

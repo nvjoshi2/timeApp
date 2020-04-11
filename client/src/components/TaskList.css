@@ -9,7 +9,7 @@ ol {
     overflow:hidden;
     overflow-y:scroll;
     list-style-type: none;
-    max-width: 400px;
+    width: 400px;
     
 }
 

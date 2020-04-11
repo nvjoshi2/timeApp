@@ -1,0 +1,14 @@
+.saved-task-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.task-list-saved {
+    max-height:800px;
+    overflow:hidden;
+    overflow-y:scroll;
+    list-style-type: none;
+    max-width: 400px;
+}
