@@ -1,7 +1,6 @@
-import React, { Component, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { logIn } from '../../actions/authActions';
-import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './RegisterPage.css';
 const RegisterPage = (props) => {

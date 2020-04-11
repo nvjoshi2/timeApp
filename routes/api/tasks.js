@@ -10,7 +10,6 @@ const Task = require('../../models/task');
 // @access public
 
 router.get('/:username', (req,res) => {
-    console.log('made get request')
     Task.find({username: String(req.params.username)})
         .then(tasks => res.json(tasks))
 });
@@ -21,10 +20,10 @@ router.get('/:username', (req,res) => {
 // @access public
 
 router.post('/', (req,res) => {
-    console.log('made post request')
     const newTask = new Task({
         username: req.body.username,
-        taskName: req.body.taskName
+        taskName: req.body.taskName,
+        color: req.body.color
     });
     // Task.find({username: req.body.username, taskName: req.body.taskName})
     //     .then(tasks => {

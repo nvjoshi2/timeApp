@@ -24,9 +24,7 @@ export const savedTaskReducer = (state = initialState, action) => {
             }
         
         case CLEAR_SAVED_TASKS:
-            return {
-                savedTasks: []
-            }
+            return initialState;
         default:
             return {...state}
     }   

@@ -1,69 +1,20 @@
-import { GET_TASKS, ADD_TASK, DELETE_TASK, TASKS_LOADING, CLEAR_TASKS, GET_COLOR_MAPS, ADD_TO_COLOR_MAPS } from '../actions/types';
+import {GET_COLOR_MAPS, ADD_TO_COLOR_MAPS, CLEAR_COLOR_MAPS} from '../actions/types';
 
 const initialState = {
-    tasks: [],
-    loading: false,
-    tasksLoaded:false,
     taskColorMap: {},
     colorMap: {},
     taskSumMap: {},
     loaded: false
-};
+}
 
-export const taskReducer = (state = initialState, action) => {
+export const colorReducer = (state=initialState, action) => {
     switch(action.type) {
-        case GET_TASKS:
-            return {
-                ...state,
-                tasks: action.payload,
-                loading: false,
-                tasksLoaded: true
-            }
-
-        case ADD_TASK:
-            return {
-                ...state,
-                tasks: [action.payload, ...state.tasks]
-            }
-        
-        case DELETE_TASK:
-            const taskColorMapDelete = state.taskColorMap;
-            const colorMapDelete = state.colorMap;
-            const taskSumMapDelete = state.taskSumMap;
-            console.log('reached before if statement')
-            if (taskColorMapDelete) {
-                console.log('reached after if statement')
-                taskSumMapDelete[action.payload.taskName].duration -= action.payload.duration;
-                if (taskSumMapDelete[action.payload.taskName].duration <= 0.0001) {
-                    delete taskSumMapDelete[action.payload.taskName]
-                    delete taskColorMapDelete[action.payload.taskName];
-                    delete colorMapDelete[action.payload.color];
-                }
-            }
-            return {
-                ...state,
-                tasks: state.tasks.filter(task => task._id !== action.payload._id),
-                taskColorMap: taskColorMapDelete,
-                colorMap: colorMapDelete,
-                taskSumMap: taskSumMapDelete
-
-
-            }
-        
-        case TASKS_LOADING:
-            return {
-                ...state,
-                loading: true
-            }
-        case CLEAR_TASKS:
-            return initialState;
-
         case GET_COLOR_MAPS:
             if (state.loaded) {
                 return {...state}
             }
 
-            const tasksToCheck = state.tasks;
+            const tasksToCheck = action.state.taskReducer.tasks;
 
 
             var taskColorMap = {};
@@ -89,7 +40,6 @@ export const taskReducer = (state = initialState, action) => {
                 loaded: true
 
             }
-
         case ADD_TO_COLOR_MAPS:
             const taskName = action.payload.taskName;
             const color = action.payload.color;
@@ -122,9 +72,15 @@ export const taskReducer = (state = initialState, action) => {
                 }
 
             }
+            
 
 
+
+        case CLEAR_COLOR_MAPS:
+            return initialState
         default:
             return {...state}
-    }   
-};
+    }
+
+    
+}

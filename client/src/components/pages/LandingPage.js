@@ -7,7 +7,7 @@ const LandingPage = (props) => {
     return(
         <div className = 'page-container'>
             <div className = 'landing-body'>
-                <div><img className = 'big-logo' src = {Logo}></img></div>
+                <div><img alt='' className = 'big-logo' src = {Logo}></img></div>
                 <div className = 'landing-text'>
                     <h1 className = 'title'>Own Your Time</h1>
                     <span className = 'subtitle'>Track and visualize your daily productivity </span>

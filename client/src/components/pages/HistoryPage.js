@@ -1,9 +1,8 @@
-import React, { Component, useState } from 'react';
+import React, {  useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Calendar from 'react-calendar';
-import { getDateTasks, getTestTasks } from '../../actions/taskActions';
-import axios from 'axios';
+import { getDateTasks } from '../../actions/taskActions';
 import TaskList from '../TaskList';
 import './HistoryPage.css'
 function HistoryPage(props) {
@@ -33,9 +32,10 @@ function HistoryPage(props) {
     //need to
     return(
         <div className='page-container'>
-            <div className="spacer"></div><h1>History</h1><div className = "spacer"></div>
-            <Calendar onChange = {onChange}/>
-            <TaskList/>
+            <div className= 'history-page-container'>
+                <Calendar onChange = {onChange}/>
+                <TaskList/>
+            </div>
         </div>
     )
 }

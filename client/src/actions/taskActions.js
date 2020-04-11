@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TASKS, ADD_TASK, DELETE_TASK, CLEAR_TASKS } from './types';
+import { GET_TASKS, ADD_TASK, DELETE_TASK, CLEAR_TASKS, GET_COLOR_MAPS } from './types';
 export const setTasksLoading = () => {
     return {
         type: 'TASKS_LOADING'
@@ -19,6 +19,7 @@ export const getTasks = (username) => dispatch => {
 };
 
 export const getTodaysTasks = (username) => dispatch => {
+    console.log('getTodaysTasksCalled')
     axios
         .get(`api/taskInstances/today/${username}`)
         .then(res =>
@@ -27,6 +28,11 @@ export const getTodaysTasks = (username) => dispatch => {
                 payload: res.data
             })
         )
+        .then(() =>{
+            dispatch({
+                type: GET_COLOR_MAPS
+            })
+        })
 }
 
 
@@ -55,12 +61,14 @@ export const addTask = (taskData) => dispatch => { //CHANGE: check that res is g
 export const deleteTask = (id) => dispatch => {
     axios
         .delete(`/api/taskInstances/${id}`)
-        .then(res =>
+        .then(res => {
+            console.log(id)
+            console.log(res)
             dispatch({
                 type: DELETE_TASK,
-                payload: id
+                payload: res.data.taskInstance
             })
-        )
+        })
 };
 
 export const clearTasks = () => dispatch => {

@@ -16,3 +16,9 @@ export const DELETE_SAVED_TASK = 'DELETE_SAVED_TASK';
 export const CLEAR_SAVED_TASKS = 'CLEAR_SAVED_TASKS';
 
 
+// color task types
+export const GET_COLOR_MAPS = 'GET_COLOR_MAPS';
+export const ADD_TO_COLOR_MAPS = 'ADD_TO_COLOR_MAPS';
+export const CLEAR_COLOR_MAPS = 'CLEAR_COLOR_MAPS';
+
+

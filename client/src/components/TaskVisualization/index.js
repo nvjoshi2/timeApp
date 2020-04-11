@@ -1,9 +1,6 @@
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
-import React, { useState, useEffect, forwardRef, useImperativeHandle, useCallback, useRef } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useRef } from 'react';
+import { useSelector } from 'react-redux';
 import './index.css';
-import useDimensions from "react-use-dimensions";
 import useComponentSize from '@rehooks/component-size'
 const TaskVisualization = (props) => {
     const ref = useRef(null)

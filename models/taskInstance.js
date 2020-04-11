@@ -18,6 +18,9 @@ const TaskInstanceSchema = new Schema({
     },
     duration: {
         type: Number
+    },
+    color: {
+        type: String
     }
 });
 

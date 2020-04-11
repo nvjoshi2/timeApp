@@ -18,11 +18,11 @@
     vertical-align: middle;
     display:flex;
     flex-direction: column;
-    text-align: left;
     align-items: flex-start;
-    float: left;
+    /* float: left; */
     padding-bottom: 4rem;
   }
+
   
   .title {
     font-weight: 500;
@@ -40,7 +40,7 @@
   .join-button {
     color: white;
     font-weight: bold;
-    background-color: #368d8f;
+    background-color: #006edc;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     text-decoration: none;
@@ -53,17 +53,20 @@
   }
   
   .join-button:focus {
-    background-color: rgb(50, 156, 158)
+    /* background-color: rgb(50, 156, 158) */
+    background-color: #2b84dd;
   }
   
   .join-button:hover {
-    background-color: rgb(50, 156, 158);
+    /* background-color: rgb(50, 156, 158); */
+    background-color: #2b84dd;
   }
 
   .join-button-nf {
     color: white;
     font-weight: bold;
-    background-color: #368d8f;
+    /* background-color: #368d8f; */
+    background-color: #006edc;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     text-decoration: none;
@@ -74,5 +77,24 @@
     cursor: pointer;
   }
   .join-button-nf:hover {
-    background-color: rgb(50, 156, 158);
+    /* background-color: rgb(50, 156, 158); */
+    background-color: #2b84dd;
+    
+  }
+
+  @media(max-width: 1000px) {
+    .landing-body {
+      flex-direction: column;
+      margin-top: 2rem;
+
+    }
+    .landing-text {
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .big-logo {
+      width: 17rem;
+      height: 17rem;
+    }
+
   }

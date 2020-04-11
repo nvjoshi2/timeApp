@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { logIn } from '../../actions/authActions';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function LoginPage(props) {
     const [state, setState] = useState({
@@ -9,7 +9,6 @@ function LoginPage(props) {
         password: ''
     });
 
-    const history = useHistory()
     const dispatch = useDispatch();
 
     const handleUsernameChange = (event) => {

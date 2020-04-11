@@ -3,14 +3,18 @@ import { Link, useLocation } from 'react-router-dom';
 import styles from './Toolbar.css';
 import { logOut } from '../../actions/authActions';
 import { clearTasks } from '../../actions/taskActions';
+import { clearSavedTasks } from '../../actions/savedTaskActions';
+import { clearColorMaps } from '../../actions/colorActions';
 import { useSelector, useDispatch } from 'react-redux';
 import Logo from '../../Logoclock.png';
 const Toolbar = props => {
     const dispatch = useDispatch();
     const handleLogOut = (event) => {
         console.log('handleLogOut called')
-        dispatch(logOut())
-        dispatch(clearTasks())
+        dispatch(logOut());
+        dispatch(clearTasks());
+        dispatch(clearSavedTasks());
+        dispatch(clearColorMaps());
     }
     const location = useLocation();
     const isActive = (linkPath) => {

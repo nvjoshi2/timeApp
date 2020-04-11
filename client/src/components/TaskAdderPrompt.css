@@ -1,19 +1,76 @@
-.task-adder {
-    display: flex;
-    flex-direction: row;
+.task-prompt-container {
+    position: absolute;
+    /* display: flex; */
+    /* flex-direction: row; */
+    top: 50%;
+    left: 50%;
+    height: 10rem;
+    width: 35rem;
+    margin: -10rem 0 0 -17.5rem;
+    /* align-items: center;
+    justify-content: center; */
+    height: 100px;
+    background-color: #414447;
+    /* border: 2px solid white; */
+    border-radius: 10px;
+    padding: 1rem;
     /* text-align: left; */
+    z-index: 15;
+    flex-wrap: wrap;
 } 
 
-/* .btn-checkbox-container {
+.task-adder {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    flex-wrap: wrap;
+}
+.close-prompt-button {
+    float:right;
+    background-color: #202027;
+    border:none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.start-task-button {
+    color: white;
+    font-weight: bold;
+    background-color: #006edc;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    padding-left: 1.4rem;
+    padding-right:1.4rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.1s linear;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    /* height: 2.5rem; */
+    align-content: center;
+  }
+  .start-task-button:hover {
+    background-color: #2b84dd;
+  }
+
+.btn-checkbox-container {
 }
 
 .prompt-item {
     margin-right: 1rem;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
 }
 
 .checkbox {
     padding:0.6rem 1rem;
     background-color: #202027;
     border-radius: 5px;
-} */
+}

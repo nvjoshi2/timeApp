@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from 'react';
+import React from 'react';
 
 const BreakButton = ({onBreak, continueTask, breakTask}) => {
     return(

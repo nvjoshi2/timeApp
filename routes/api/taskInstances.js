@@ -27,13 +27,6 @@ router.get('/today/:username', (req, res) => {
     const dd = today.getDate()
     const mm = today.getMonth()
     const yyyy = today.getFullYear();
-    // console.log(`year: ${yyyy}`)
-    // console.log(`day: ${dd}`)
-    // console.log(`month: ${mm}`)
-    console.log('made get request')
-    // const today_string = mm + '/' + dd + '/' + yyyy
-    // console.log((new Date(yyyy, mm, dd)));
-    // res.json(today)
     TaskInstance.find({
         username: String(req.params.username),
         startDate: {"$gte": new Date(yyyy, mm, dd), "$lt": new Date(yyyy, mm, dd + 1)}
@@ -79,7 +72,8 @@ router.post('/', (req, res) => {
                     taskName: req.body.taskName,
                     startDate: req.body.startDate,
                     endDate: req.body.endDate,
-                    duration: req.body.duration
+                    duration: req.body.duration,
+                    color: req.body.color
                 });
                 newTaskInstance.save()
                     .then(taskInstance => res.json(taskInstance));
@@ -98,7 +92,7 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     TaskInstance.findById(req.params.id)
-        .then(taskInstance => taskInstance.remove().then(res.json({success: true})))
+        .then(taskInstance => taskInstance.remove().then(res.json({taskInstance})))
         .catch(err => {
             console.log(err);
             res.status(404).json({success: false});

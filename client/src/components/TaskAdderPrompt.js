@@ -1,12 +1,12 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSavedTasks, addSavedTask, deleteSavedTask } from '../actions/savedTaskActions';
+import { addSavedTask } from '../actions/savedTaskActions';
+import { addToColorMaps } from '../actions/colorActions';
 import Select from 'react-select';
-import CreatableSelect from 'react-select/creatable';
 import './TaskAdderPrompt.css';
 // import DropdownInput from 'react-dropdown-input';
 
-const TaskAdderPrompt = ({credentials, setCurrentTaskName, setPromptOpen, startTask}) => {
+const TaskAdderPrompt = ({credentials, setCurrentTaskName, setPromptOpen, startTask, taskColorMap, colorMap, colorSetter}) => {
     const colourStyles = {
         // input: (base, state) => ({
         //     ...base,
@@ -93,7 +93,7 @@ const TaskAdderPrompt = ({credentials, setCurrentTaskName, setPromptOpen, startT
 
     const onInputChange = (valueLabel, {action}) => {
 
-        if (action == 'input-change') {
+        if (action === 'input-change') {
             const value = {label: valueLabel, value: valueLabel}
             onChange(value, {action})
         }
@@ -103,6 +103,9 @@ const TaskAdderPrompt = ({credentials, setCurrentTaskName, setPromptOpen, startT
     const options = savedTasks.map(task => ({label: task.taskName, value: task._id}));
 
     const handleSubmit = () => {
+        if (!childTaskName) {
+            return;
+        }
         if (willSaveTask) {
             dispatch(addSavedTask({
                 username: credentials.username,
@@ -118,6 +121,7 @@ const TaskAdderPrompt = ({credentials, setCurrentTaskName, setPromptOpen, startT
     console.log('task name:' + childTaskName)
     return(
         <div className = 'task-prompt-container'>
+            <button className='close-prompt-button' onClick = {() => setPromptOpen(false)}>x</button>
             <div className = 'task-adder'>
                 
                 <Select 
@@ -136,15 +140,15 @@ const TaskAdderPrompt = ({credentials, setCurrentTaskName, setPromptOpen, startT
                 maxMenuHeight = {200}
                 />
                 {/* <div className='btn-checkbox-container '> */}
-                    <button className='join-button-nf prompt-item' onClick = {handleSubmit}>
-                        Start Task
-                    </button>
                     <form className = 'checkbox prompt-item'>
                         <label>
                             Save task?
                             <input type="checkbox" checked = {willSaveTask} onChange = {() => setWillSaveTask(!willSaveTask)}/>
                         </label>
                     </form>
+                    <button className='start-task-button' onClick = {handleSubmit}>
+                        Start Task
+                    </button>
                     
                     
                 {/* </div> */}

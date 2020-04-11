@@ -1,17 +1,21 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Timer from '../Timer';
-import TaskForm from '../TaskForm';
 import TaskList from '../TaskList'
 import BreakButton from '../BreakButton';
-import { addTask, getTodaysTasks } from '../../actions/taskActions';
-import { getSavedTasks, addSavedTask, deleteSavedTask } from '../../actions/savedTaskActions';
-import Axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
+import { addTask, getTodaysTasks, clearTasks } from '../../actions/taskActions';
+import { getSavedTasks } from '../../actions/savedTaskActions';
+import { useHistory } from 'react-router-dom';
 import TaskAdderPrompt from './../TaskAdderPrompt';
-import TaskVisualization from '../TaskVisualization';
+import randomColor from 'randomcolor';
+import { addToColorMaps } from '../../actions/colorActions';
+import CustomPieChart from '../CustomPieChart';
 import './HomePage.css';
 function HomePage(props) {
+    const tasksLoaded = useSelector(state => {
+        console.log(state.taskReducer.tasksLoaded)
+        return state.taskReducer.tasksLoaded;
+    });
     const history = useHistory();
     const isLogged = useSelector(state => state.authReducer.isLogged);
     if(!isLogged) {
@@ -19,12 +23,50 @@ function HomePage(props) {
     }
     const credentials = useSelector(state => state.authReducer.credentials);
     const dispatch = useDispatch()
-    dispatch(getTodaysTasks(credentials.username));
     dispatch(getSavedTasks(credentials.username));
-    const tasksLoaded = useSelector(state => {
-        console.log(state.taskReducer.tasksLoaded)
-        return state.taskReducer.tasksLoaded;
-    })
+    dispatch(getTodaysTasks(credentials.username));
+    const taskColorMap = useSelector(state => state.taskReducer.taskColorMap)
+    const colorMap = useSelector(state => state.taskReducer.colorMap)
+    // if (tasks.length == 0 && taskColorMap != {}) {
+    //     console.log('cleared tasks')
+    //     dispatch(clearTasks())
+    // }
+
+    // const taskSumMap = useSelector(state => state.taskReducer.taskSumMap)
+    const breakColor = '#8f2626';
+    // var taskColorMap = {
+    //     'x' : 'red',
+    //     'y' : 'blue',
+    //     'z' : 'green',
+    //     'h' : 'yellow'
+    // };
+    // var colorMap = {
+    //     'red' : null,
+    //     'blue' : null,
+    //     'green' : null,
+    //     'yellow' : null
+    // };
+    // const [taskColorMap, colorMap] = useSelector(state => {
+    //     const savedTasks = state.savedTaskReducer.savedTasks;
+    //     const todaysTasks = state.taskReducer.tasks;
+    //     const tasksToCheck = savedTasks.concat(todaysTasks);
+
+    //     var taskColorMap= {}
+    //     var colorMap = {}
+    //     taskColorMap['break'] = breakColor;
+    //     colorMap[breakColor] = null;
+    //     for (var i = 0; i < tasksToCheck.length; i++) {
+    //         const task = tasksToCheck[i]
+    //         if (task.color) {
+    //             taskColorMap[task.taskName] = task.color;
+    //             colorMap[task.color] = null;
+    //         }
+    //     }
+    //     return [taskColorMap, colorMap];
+
+        
+
+    // }, )
 
 
     const [taskIsActive, setTaskIsActive] = useState(false);
@@ -50,6 +92,19 @@ function HomePage(props) {
         setTaskIsActive(true);
         taskTimerRef.current.startTimer();
     }
+
+    const colorSetter = (taskName) => {
+        var color;
+        if (taskName in taskColorMap) {
+            color = taskColorMap[taskName];
+        } else {
+            color = randomColor();
+            while (color in colorMap) {
+                color = randomColor();
+            }
+        }
+        return color;
+    }
     
     const endTask = () => {
         setEndDate(Date.now());
@@ -59,16 +114,21 @@ function HomePage(props) {
                 taskName: 'break',
                 startDate: startDate,
                 endDate: Date.now(),
-                duration: getDuration()
+                duration: getDuration(),
+                color: breakColor
             }))
         } else {
+            const color = colorSetter(currentTaskName);
+            const duration = getDuration()
             dispatch(addTask({
                 username: credentials.username,
                 taskName: currentTaskName,
                 startDate: startDate,
                 endDate: Date.now(),
-                duration: getDuration()
+                duration: duration,
+                color: color
             }))
+            dispatch(addToColorMaps(currentTaskName, color, duration))
         }
         
         taskTimerRef.current.resetTimer();
@@ -83,13 +143,18 @@ function HomePage(props) {
     // -set end date to current, push task to 
     const breakTask = () => {
         //add task that was being worked on before break
+        const color = colorSetter(currentTaskName);
+        const duration = getDuration();
         dispatch(addTask({
             username: credentials.username,
             taskName: currentTaskName,
             startDate: startDate,
             endDate: Date.now(),
-            duration: getDuration()
+            duration: duration,
+            color: color
         }));
+        dispatch(addToColorMaps(currentTaskName, color, duration))
+        
         //change state values for adding break task
         setStartDate(Date.now());
         setOnBreak(true);
@@ -99,10 +164,11 @@ function HomePage(props) {
     const continueTask = () => {
         dispatch(addTask({
             username: credentials.username,
-            taskName: 'Break',
+            taskName: 'break',
             startDate: startDate,
             endDate: Date.now(),
-            duration: getDuration()
+            duration: getDuration(),
+            color: breakColor
         }))
         setStartDate(Date.now());
 
@@ -112,12 +178,6 @@ function HomePage(props) {
     }
 
     const getTaskName = (event) => {
-        // const taskName = prompt('Please enter the name of your task');
-        // setCurrentTaskName(taskName);
-
-        // if (taskName) {
-        //     startTask()
-        // }
         setPromptOpen(true);
 
     }
@@ -125,27 +185,43 @@ function HomePage(props) {
     
     return(
         <div className='page-container'>
-            <div className ='home-page-body'>
-                <div className = 'timer-section'>
-                    <div className = 'current-task-text'><h2>{(onBreak) ? 'Break' : currentTaskName }</h2></div>
-                    <div className = 'timers'>
-                        <Timer ref = {taskTimerRef} class = {'timer-' + ((onBreak) ? 'inactive' : 'active')}/>
-                        <Timer ref = {breakTimerRef} class = {'break-timer-' + ((onBreak) ? 'active' : 'inactive')}/>
-                    </div>
-                    
-                    {!promptOpen && <div className = 'timer-buttons'>
-                        <div>
-                            <button className='join-button-nf' onClick={taskIsActive ? endTask : getTaskName}>
-                                {taskIsActive ? 'End Task' : 'Start New Task'}
-                            </button>
+            {promptOpen && <TaskAdderPrompt
+                             credentials={credentials}
+                             setCurrentTaskName={setCurrentTaskName} 
+                             setPromptOpen={setPromptOpen} 
+                             startTask={startTask}
+                             taskColorMap = {taskColorMap}
+                             colorMap = {colorMap}
+                             colorSetter = {colorSetter}
+                             />}
+            <div className = {'home-page-body' + ((promptOpen) ? ' faded' : '')}>
+                <div className = 'home-body-top'>
+                    <div className = 'timer-section'>
+                        <div className = 'current-task-text'><h2>{(onBreak) ? 'break' : currentTaskName }</h2></div>
+                        <div className = 'timers'>
+                            <Timer ref = {taskTimerRef} class = {'timer-' + ((onBreak) ? 'inactive' : 'active')}/>
+                            <Timer ref = {breakTimerRef} class = {'break-timer-' + ((onBreak) ? 'active' : 'inactive')}/>
                         </div>
-                        {taskIsActive && <BreakButton onBreak = {onBreak} continueTask = {continueTask} breakTask = {breakTask}/>}
-                    </div>}
-                    {promptOpen && <TaskAdderPrompt credentials={credentials} setCurrentTaskName={setCurrentTaskName} setPromptOpen={setPromptOpen} startTask={startTask}/>}
+                        
+                        <div className = 'timer-buttons'>
+                            <div>
+                                <button className='join-button-nf' onClick={taskIsActive ? endTask : getTaskName}>
+                                    {taskIsActive ? 'End Task' : 'Start New Task'}
+                                </button>
+                            </div>
+                            {taskIsActive && <BreakButton onBreak = {onBreak} continueTask = {continueTask} breakTask = {breakTask}/>}
+                        </div>
+                        
+                    </div>
+                    <div className = 'task-section'>
+                        <TaskList/>
+                    </div>
+                    {/* <div className = 'pie-chart'>
+                        <CustomPieChart/>
+                    </div> */}
                 </div>
-                <div className = 'task-section'>
-                    <h3>Today's Tasks</h3>
-                    <TaskList/>
+                <div className = 'home-body-bottom'>
+                    <CustomPieChart/>
                 </div>
             </div>
 

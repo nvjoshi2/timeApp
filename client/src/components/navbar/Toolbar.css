@@ -53,10 +53,10 @@
 
 
 .toolbar_navigation-items a:hover {
-    border-bottom: 3px solid #368d8f;
+    border-bottom: 3px solid #006edc;
 }
 
 .toolbar_navigation-items a.active {
-    border-bottom: 3px solid #368d8f;
+    border-bottom: 3px solid #006edc;
 }
 

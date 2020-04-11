@@ -23,7 +23,7 @@ export const logIn = (username, password) => dispatch => {
             history.push('/home')
 
         })
-        .catch(err => console.log(err.response.status))
+        .catch(err => console.log(err.response))
 };
 
 export const logOut = () => dispatch => {
