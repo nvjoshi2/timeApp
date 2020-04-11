@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const path = require('path');
 
 // Bodyparser middleware
 
@@ -28,6 +29,16 @@ app.use('/api/tasks', tasksRouter);
 const taskInstancesRouter = require('./routes/api/taskInstances');
 app.use('/api/taskInstances', taskInstancesRouter);
 
+//Serve static assets if in production
+
+if (process.env.NODE_ENV === 'production') {
+    // set static folder
+    app.use(express.static('client/build'))
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(_dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 const port = process.env.PORT || 5000;
 
