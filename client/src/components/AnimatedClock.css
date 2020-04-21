@@ -1,0 +1,76 @@
+.clock-section {
+    /* height: 800px; */
+    /* overflow: hidden; */
+}
+
+.clock-wrapper {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    /* margin:auto; */
+    text-align: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-top: 3rem;
+    margin-left: -5rem;
+    /* transform: scale(1.4) translate3d(0, 100px, 0) */
+
+}
+
+.clock-wrapper .clock-img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+
+}
+
+.clock-wrapper .hours {
+    transform: rotate(120deg);
+    animation: hoursAnimation 7s linear ;
+}
+.clock-wrapper .minutes {
+    transform: rotate(1440deg);
+    animation: minutesAnimation 7s linear ;
+}
+
+.clock-wrapper .inner-circle {
+    transform: rotate(-120deg);
+    animation: innerCircleAnimation 7s linear ;
+}
+
+@keyframes hoursAnimation {
+    0% { transform: rotate(0); }
+    /* 33.33% {transform: rotate(30deg);}
+    66.66% {transform: rotate(60deg);} */
+    100% {transform: rotate(120deg);}
+}
+@keyframes minutesAnimation {
+    0% { transform: rotate(0); }
+    /* 33.33% {transform: rotate(360deg);}
+    66.66% {transform: rotate(720deg);}  */
+    100% {transform: rotate(1440deg);}
+}
+
+@keyframes innerCircleAnimation {
+    0% { transform: rotate(0); }
+    /* 33.33% {transform: rotate(-30deg);}
+    66.66% {transform: rotate(-60deg);} */
+    100% {transform: rotate(-90deg);}
+}
+
+@media (max-width: 500px) {
+    .clock-wrapper {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .clock-wrapper {
+        margin-left: 0rem;
+    }
+}
+
+

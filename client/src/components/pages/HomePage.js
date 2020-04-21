@@ -7,10 +7,13 @@ import { addTask, getTodaysTasks, clearTasks } from '../../actions/taskActions';
 import { getSavedTasks } from '../../actions/savedTaskActions';
 import { useHistory } from 'react-router-dom';
 import TaskAdderPrompt from './../TaskAdderPrompt';
-import randomColor from 'randomcolor';
+// import randomColor from 'randomcolor';
 import { addToColorMaps } from '../../actions/colorActions';
 import CustomPieChart from '../CustomPieChart';
 import './HomePage.css';
+import randomColor from '../../functions/randomColor';
+import TaskListDemo from '../TaskListDemo';
+import PieChartDemo from '../PieChartDemo';
 function HomePage(props) {
     const tasksLoaded = useSelector(state => {
         console.log(state.taskReducer.tasksLoaded)
@@ -25,6 +28,7 @@ function HomePage(props) {
     const dispatch = useDispatch()
     dispatch(getSavedTasks(credentials.username));
     dispatch(getTodaysTasks(credentials.username));
+    
     const taskColorMap = useSelector(state => state.taskReducer.taskColorMap)
     const colorMap = useSelector(state => state.taskReducer.colorMap)
     // if (tasks.length == 0 && taskColorMap != {}) {
@@ -33,7 +37,7 @@ function HomePage(props) {
     // }
 
     // const taskSumMap = useSelector(state => state.taskReducer.taskSumMap)
-    const breakColor = '#8f2626';
+    const breakColor = '#a0a199';
     // var taskColorMap = {
     //     'x' : 'red',
     //     'y' : 'blue',
@@ -108,18 +112,19 @@ function HomePage(props) {
     
     const endTask = () => {
         setEndDate(Date.now());
+        const duration = getDuration()
         if (onBreak) {
             dispatch(addTask({
                 username: credentials.username,
                 taskName: 'break',
                 startDate: startDate,
                 endDate: Date.now(),
-                duration: getDuration(),
+                duration: duration,
                 color: breakColor
             }))
+            dispatch(addToColorMaps('break', breakColor, duration))
         } else {
             const color = colorSetter(currentTaskName);
-            const duration = getDuration()
             dispatch(addTask({
                 username: credentials.username,
                 taskName: currentTaskName,
@@ -162,14 +167,16 @@ function HomePage(props) {
         breakTimerRef.current.startTimer();
     }
     const continueTask = () => {
+        const duration = getDuration();
         dispatch(addTask({
             username: credentials.username,
             taskName: 'break',
             startDate: startDate,
             endDate: Date.now(),
-            duration: getDuration(),
+            duration: duration,
             color: breakColor
         }))
+        dispatch(addToColorMaps('break', breakColor, duration))
         setStartDate(Date.now());
 
         setOnBreak(false);
@@ -179,7 +186,6 @@ function HomePage(props) {
 
     const getTaskName = (event) => {
         setPromptOpen(true);
-
     }
 
     
@@ -195,14 +201,14 @@ function HomePage(props) {
                              colorSetter = {colorSetter}
                              />}
             <div className = {'home-page-body' + ((promptOpen) ? ' faded' : '')}>
-                <div className = 'home-body-top'>
+                {/* <div className = 'home-body-top'> */}
+                <div className = 'home-page-left'>
                     <div className = 'timer-section'>
                         <div className = 'current-task-text'><h2>{(onBreak) ? 'break' : currentTaskName }</h2></div>
                         <div className = 'timers'>
                             <Timer ref = {taskTimerRef} class = {'timer-' + ((onBreak) ? 'inactive' : 'active')}/>
                             <Timer ref = {breakTimerRef} class = {'break-timer-' + ((onBreak) ? 'active' : 'inactive')}/>
                         </div>
-                        
                         <div className = 'timer-buttons'>
                             <div>
                                 <button className='join-button-nf' onClick={taskIsActive ? endTask : getTaskName}>
@@ -211,23 +217,22 @@ function HomePage(props) {
                             </div>
                             {taskIsActive && <BreakButton onBreak = {onBreak} continueTask = {continueTask} breakTask = {breakTask}/>}
                         </div>
-                        
                     </div>
+
+                    <div className = 'pie-chart-section'>
+                            <CustomPieChart/>
+                            {/* <PieChartDemo/> */}
+                    </div>
+                </div>
+            
+                <div className = 'home-page-right'>
                     <div className = 'task-section'>
                         <TaskList/>
+                        {/* <TaskListDemo/> */}
                     </div>
-                    {/* <div className = 'pie-chart'>
-                        <CustomPieChart/>
-                    </div> */}
                 </div>
-                <div className = 'home-body-bottom'>
-                    <CustomPieChart/>
-                </div>
+                
             </div>
-
-
-            {/* {tasksLoaded && <TaskVisualization/>} */}
-            {/* <TaskForm setCurrentTaskName={setCurrentTaskName} startTask={startTask}/> */}
         </div>
     )
 }

@@ -5,7 +5,8 @@ ol {
     padding-inline-start: none;
 }
 .task-list {
-    max-height:800px;
+    max-height: 80vh;
+    /* height: 100vh; */
     overflow:hidden;
     overflow-y:scroll;
     list-style-type: none;
@@ -64,3 +65,8 @@ ol {
     font-size: 0.9rem;
 }
 
+@media (max-width: 1000px) {
+    .task-list {
+        max-height: none;
+    }
+}

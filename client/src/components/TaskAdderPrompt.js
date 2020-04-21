@@ -146,7 +146,7 @@ const TaskAdderPrompt = ({credentials, setCurrentTaskName, setPromptOpen, startT
                             <input type="checkbox" checked = {willSaveTask} onChange = {() => setWillSaveTask(!willSaveTask)}/>
                         </label>
                     </form>
-                    <button className='start-task-button' onClick = {handleSubmit}>
+                    <button className='start-task-button prompt-item' onClick = {handleSubmit}>
                         Start Task
                     </button>
                     

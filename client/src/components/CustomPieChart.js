@@ -14,6 +14,19 @@ const CustomPieChart = (props) => {
     return (
         <PieChart
         data = {taskSums}
+        // label = {props => (props.data[props.dataIndex].title)}
+        // labelStyle={{
+        //     fontSize: '2px',
+        //     // fontFamily: 'sans-serif',
+        //     fill: 'white',
+        //     fontWeight: 'bold'
+        //     // border: '1px solid red'
+            
+        //   }}
+        // radius={}
+        labelPosition={115}
+        // viewBoxSize={[400,400]}
+        startAngle = {0}
         />
     )
 }

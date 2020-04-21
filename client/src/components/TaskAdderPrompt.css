@@ -5,8 +5,8 @@
     top: 50%;
     left: 50%;
     height: 10rem;
-    width: 35rem;
-    margin: -10rem 0 0 -17.5rem;
+    width: 40rem;
+    margin: -10rem 0 0 -20rem;
     /* align-items: center;
     justify-content: center; */
     height: 100px;
@@ -73,4 +73,17 @@
     padding:0.6rem 1rem;
     background-color: #202027;
     border-radius: 5px;
+}
+
+@media (max-width: 750px) {
+    .task-prompt-container {
+        width: 20rem;
+        margin: -10rem 0 0 -10rem;
+        height: 150px;
+    }
+
+    .prompt-item {
+        margin-bottom: 1rem;
+    }
+
 }

@@ -1,6 +1,7 @@
 .form-page {
     margin-top: 15vh;
-    align-items: center;
+    display: flex;
+    justify-content: center;
   
   }
   
