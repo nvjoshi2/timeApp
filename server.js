@@ -32,14 +32,14 @@ app.use('/api/taskInstances', taskInstancesRouter);
 //Serve static assets if in production
 
 // if (process.env.NODE_ENV === 'production') {
-//     // set static folder
-//     app.use(express.static('client/build'))
+    // set static folder
+    app.use(express.static('client/build'))
 
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.resolve(_dirname, 'client', 'build', 'index.html'))
-//     })
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(_dirname, 'client', 'build', 'index.html'))
+    })
 // }
-app.use(express.static(path.join(__dirname, "client/build")));
+// app.use(express.static(path.join(__dirname, "client/build")));
 // const port = process.env.PORT || 5000;
 const port = 3000
 // console.log(port)
