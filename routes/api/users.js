@@ -12,8 +12,7 @@ const TaskInstance = require('../../models/taskInstance');
 // @access public
 
 router.get('/', (req,res) => {
-    User.find()
-        .then(user => res.json(user)) // make this update state
+    res.json({testSuccess: true})
 });
 
 
@@ -97,6 +96,7 @@ router.post('/login', (req, res) => {
 
 router.get('/test', (req, res) => {
     res.json({test: 'works hell yeah'})
+
 })
 
 
