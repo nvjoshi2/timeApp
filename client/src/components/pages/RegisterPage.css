@@ -59,3 +59,8 @@
     border: none;
     cursor: pointer;
   }
+
+  .password-message {
+    font-size: 10px;
+    color: red
+  }

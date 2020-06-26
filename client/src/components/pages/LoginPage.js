@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../../actions/authActions';
 import { useHistory } from 'react-router-dom';
+import { CLEAR_LOGIN_MESSAGE, LOG_IN } from '../../actions/types';
+import {BACKEND_URL} from '../../actions/backendUrl';
+import axios from 'axios';
 
 function LoginPage(props) {
     const [state, setState] = useState({
@@ -9,8 +12,13 @@ function LoginPage(props) {
         password: ''
     });
 
-    const dispatch = useDispatch();
+    const [usernameMessage, setUsernameMessage] = useState('')
+    const [passwordMessage, setPasswordMessage] = useState('')
 
+    const history = useHistory();
+
+
+    const dispatch = useDispatch();
     const handleUsernameChange = (event) => {
         setState({
             username: event.target.value,
@@ -27,8 +35,37 @@ function LoginPage(props) {
         // what do i want this to do?
         // 1st, search database for 
         // console.log('hahahaha')
-        dispatch(logIn(state.username, state.password))
+        logIn(state.username, state.password)
     }
+
+    const logIn = async (username, password) => {
+        console.log('logIn called')
+        const credentials = {
+            username,
+            password
+        }
+    
+        axios
+            .post(`${BACKEND_URL}/api/users/login`, credentials)
+            .then(res => {
+                dispatch({
+                    type: LOG_IN,
+                    payload: res.data
+                });
+                history.push('/home')
+    
+            })
+            .catch(err => {
+                const status = err.response.status;
+                if (status == 401) {
+                    setPasswordMessage('wrong password')
+                } else if (status == 404) {
+                    setUsernameMessage('no user found with given username')
+                } else {
+                    console.log(err)
+                }
+            })
+    };
 
     return(
         // <div className='page-container'>
@@ -60,10 +97,12 @@ function LoginPage(props) {
                 <div className = 'input-group'>
                     <label>Username:</label>
                     <input  type='text' value={state.username} onChange={handleUsernameChange}/>
+                    <label className = 'password-message'>{usernameMessage}</label>
                 </div>
                 <div className = 'input-group'>
                     <label>Password:</label >
                     <input  type='password' value={state.password}onChange={handlePasswordChange}/>
+                    <label className = 'password-message'>{passwordMessage}</label>
                 </div>
                 <div className = 'input-group'>
                     <button type="button" className = 'join-button' onClick={handleSubmit}>Log In</button>

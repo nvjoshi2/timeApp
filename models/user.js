@@ -9,8 +9,16 @@ const UserSchema = new Schema({
         unique: true,
         required: true
     },
-    password: {
+    hash: {
         type: String,
+        required: true
+    },
+    salt: {
+        type: String,
+        required: true
+    },
+    iterations: {
+        type: Number,
         required: true
     },
     email: {

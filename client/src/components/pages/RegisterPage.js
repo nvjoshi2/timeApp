@@ -7,7 +7,8 @@ import { BACKEND_URL } from '../../actions/backendUrl';
 const RegisterPage = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
+    const [passwordMessage, setPasswordMessage] = useState('')
 
     const dispatch = useDispatch();
 
@@ -23,12 +24,29 @@ const RegisterPage = (props) => {
     const handleSubmit = (event) => {
         addUser(username, password, email)
     }
+    const hasSpecialCharacter = (str) => {
+        return /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+    }
     const addUser = (username, password, email) => {
         const credentials = {
             username,
             password,
             email
         }
+        if (password.length < 8) {
+            setPasswordMessage('password must be atleast 8 characters long');
+            return
+        }
+        if(!hasSpecialCharacter(password)) {
+            setPasswordMessage('password must contain a special character');
+            return
+        }
+
+        if (!username || !email) {
+            setPasswordMessage('need email and password');
+            return
+        }
+
         axios.post(`${BACKEND_URL}/api/users/register`, credentials)
             .then(res => {
                 dispatch(logIn(username, password))
@@ -52,6 +70,7 @@ const RegisterPage = (props) => {
                 <div className = 'input-group'>
                     <label>Password:</label >
                     <input type='password' value={password}onChange={handlePasswordChange}/>
+                    <label className = 'password-message'>{passwordMessage}</label>
                 </div>
                 <div className = 'input-group'>
                     <button type="button" className = 'join-button' onClick={handleSubmit}>Sign Up</button>

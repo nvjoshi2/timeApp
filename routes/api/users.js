@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const hashFunctions = require('../../hashFunctions');
+const hashPassword = hashFunctions.hashPassword;
+const checkPassword = hashFunctions.checkPassword;
 
 // pull user model
 
@@ -12,7 +15,8 @@ const TaskInstance = require('../../models/taskInstance');
 // @access public
 
 router.get('/', (req,res) => {
-    res.json({testSuccess: true})
+    User.find()
+        .then(user => res.json(user)) // make this update state
 });
 
 
@@ -33,24 +37,14 @@ router.get('/:username', (req,res) => {
 // @access public
 
 router.post('/register', (req,res) => {
-    // User.find({username: req.body.username})
-    //     .then(docs => {
-    //         if(docs.length) { // may be uneccassary since i added unique field to name field of User model
-    //             res.json({"msg": "username already taken"})
-    //         } else {
-    //             const newUser = new User({
-    //                 username: req.body.username,
-    //                 password: req.body.password,
-    //                 email: req.body.email
-    //             });
-    //             newUser.save()
-    //                 .then(user => res.json(user))
-
-    //         }
-    //     })
+    console.log('attempted registration')
+    console.log(req.body.password)
+    const [hash, salt, iterations] = hashPassword(req.body.password)
     const newUser = new User({
         username: req.body.username,
-        password: req.body.password,
+        hash,
+        salt,
+        iterations,
         email: req.body.email
     });
     newUser.save()
@@ -79,24 +73,23 @@ router.delete('/:id', (req, res) => {
 // @access public
 
 router.post('/login', (req, res) => {
-    User.findOne({username: req.body.username, password: req.body.password})
+    User.findOne({username: req.body.username})
         .then(user => {
             if (!user) {
                 console.log(req.body)
                 res.status(404).json({success:false})
             } else {
-                res.status(200).json(user)
+                if (checkPassword(user.hash, user.salt, user.iterations, req.body.password)) {
+                    res.status(200).json(user)
+                } else {
+                    res.status(401).json({success: false})
+                }
             }
         })
         .catch(err => {
             console.log(err);
             res.status(500)
         })
-})
-
-router.get('/test', (req, res) => {
-    res.json({test: 'works hell yeah'})
-
 })
 
 

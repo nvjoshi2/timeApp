@@ -23,4 +23,9 @@ export const CLEAR_COLOR_MAPS = 'CLEAR_COLOR_MAPS';
 
 // check for production to set 
 
+export const WRONG_PASSWORD = 'WRONG_PASSWORD';
+export const NO_USER_FOUND = 'NO_USER_FOUND';
+export const CLEAR_LOGIN_MESSAGE = 'CLEAR_LOGIN_MESSAGE';
+
+
 
