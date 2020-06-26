@@ -95,5 +95,9 @@ router.post('/login', (req, res) => {
         })
 })
 
+router.get('/test', (req, res) => {
+    res.json({test: 'works hell yeah'})
+})
+
 
 module.exports = router;

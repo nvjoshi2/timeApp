@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { logIn } from '../../actions/authActions';
 import axios from 'axios';
 import './RegisterPage.css';
+import { BACKEND_URL } from '../../actions/backendUrl';
 const RegisterPage = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -28,7 +29,7 @@ const RegisterPage = (props) => {
             password,
             email
         }
-        axios.post('/api/users/register', credentials)
+        axios.post(`${BACKEND_URL}/api/users/register`, credentials)
             .then(res => {
                 dispatch(logIn(username, password))
             })

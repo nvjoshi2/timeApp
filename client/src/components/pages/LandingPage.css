@@ -102,8 +102,7 @@
   @media(max-width: 1000px) {
     .landing-body {
       flex-direction: column;
-      margin-top: -5rem;
-      /* justify-content: space-evenly; */
+      /* margin-top: -5rem; */
       align-content: center;
       align-items: center;
 
@@ -111,12 +110,8 @@
     }
     .landing-text {
       align-items: center;
-      /* margin-top: 3rem; */
+      margin-top: 0em;
     }
-    /* .big-logo {
-      width: 17rem;
-      height: 17rem;
-    } */
 
   }
 
@@ -150,7 +145,7 @@
 
   @keyframes pulseAnimation {
     0% {opacity: 0}
-    30% {opacity: 0.5}
-    60% {opacity: 0}
+    12.5% {opacity: 0.15}
+    25% {opacity: 0}
   }
 

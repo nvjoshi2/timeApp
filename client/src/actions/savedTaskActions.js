@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { GET_SAVED_TASKS, ADD_SAVED_TASK, DELETE_SAVED_TASK, CLEAR_SAVED_TASKS } from './types';
-
+import { BACKEND_URL } from './backendUrl';
 export const getSavedTasks = (username) => dispatch => {
     // dispatch(setTasksLoading());
     axios
-        .get(`api/tasks/${username}`) //gives response
+        .get(`${BACKEND_URL}/api/tasks/${username}`) //gives response
         .then(res => 
             dispatch({
                 type: GET_SAVED_TASKS,
@@ -16,7 +16,7 @@ export const getSavedTasks = (username) => dispatch => {
 
 export const addSavedTask = (taskData) => dispatch => { //CHANGE: check that res is good before adding to state with dispatch
     axios
-        .post('/api/tasks', taskData)
+        .post(`${BACKEND_URL}/api/tasks`, taskData)
         .then(res => 
             // console.log('THIS IS WORKING')
             // console.log('res: ' + res)
@@ -29,7 +29,7 @@ export const addSavedTask = (taskData) => dispatch => { //CHANGE: check that res
 
 export const deleteSavedTask = (id) => dispatch => {
     axios
-        .delete(`/api/tasks/${id}`)
+        .delete(`${BACKEND_URL}/api/tasks/${id}`)
         .then(res =>
             dispatch({
                 type: DELETE_SAVED_TASK,

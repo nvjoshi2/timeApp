@@ -21,4 +21,6 @@ export const GET_COLOR_MAPS = 'GET_COLOR_MAPS';
 export const ADD_TO_COLOR_MAPS = 'ADD_TO_COLOR_MAPS';
 export const CLEAR_COLOR_MAPS = 'CLEAR_COLOR_MAPS';
 
+// check for production to set 
+
 

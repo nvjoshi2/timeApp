@@ -1,4 +1,4 @@
-import { GET_SAVED_TASKS, ADD_SAVED_TASK, DELETE_SAVED_TASK, CLEAR_SAVED_TASKS } from '../actions/types';
+ import {  GET_SAVED_TASKS, ADD_SAVED_TASK, DELETE_SAVED_TASK, CLEAR_SAVED_TASKS} from '../actions/types'
 const initialState = {
     savedTasks: [],
 };

@@ -4,17 +4,17 @@ import { LOG_IN , LOG_OUT} from './types'
 import { Link, useHistory } from 'react-router-dom';
 import history from '../history';
 import {getTasks} from './taskActions';
+import { BACKEND_URL } from './backendUrl';
+import fetch from 'cross-fetch';
 export const logIn = (username, password) => dispatch => {
     console.log('logIn called')
     const credentials = {
         username,
         password
     }
-    // dispatch({
-    //     type:'LOG_IN'
-    // })
+
     axios
-        .post('/api/users/login', credentials)
+        .post(`${BACKEND_URL}/api/users/login`, credentials)
         .then(res => {
             dispatch({
                 type: LOG_IN,

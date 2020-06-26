@@ -13,8 +13,9 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    margin-top: 3rem;
+    /* margin-top: 5rem; */
     margin-left: -5rem;
+    top: 3rem;
     /* transform: scale(1.4) translate3d(0, 100px, 0) */
 
 }
@@ -70,7 +71,9 @@
 @media (max-width: 1000px) {
     .clock-wrapper {
         margin-left: 0rem;
+        top: 0;
     }
+
 }
 
 

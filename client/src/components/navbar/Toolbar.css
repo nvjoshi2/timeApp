@@ -6,6 +6,7 @@
     height: 70px;
     text-decoration: none;
     vertical-align: middle;
+    z-index: 1;
 }
 .logo-small {
     height:40px;
@@ -33,7 +34,7 @@
     flex: 1
 }
 .toolbar_navigation-items {
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 .toolbar_navigation-items ul {
     list-style: none;

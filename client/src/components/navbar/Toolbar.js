@@ -28,7 +28,7 @@ const Toolbar = props => {
     return(
     // <header className="toolbar">
         <nav className="toolbar__navigation">
-            {location.pathname != '/' && <div className="toolbar__logo"><Link to='/home'><img className = 'logo-small' src={Logo}/></Link></div>}
+            {location.pathname != '/' && <div className="toolbar__logo"><Link to='/'><img className = 'logo-small' src={Logo}/></Link></div>}
             <div className="spacer"/>
             <div className="toolbar_navigation-items">
                 <ul>
@@ -38,7 +38,6 @@ const Toolbar = props => {
                     {isLogged && <li><Link className={isActive('/logout')} to='/login'><span onClick={handleLogOut}>Log Out</span></Link></li>}
                     {!isLogged && <li><Link className={isActive('/login')} to='/login'>Log In</Link></li>}
                     {!isLogged && <li><Link className={isActive('/register')} to='/register'>Register</Link></li>}
-
                 </ul>
             </div>
         </nav>

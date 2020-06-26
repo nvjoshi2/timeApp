@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { GET_TASKS, ADD_TASK, DELETE_TASK, CLEAR_TASKS, GET_COLOR_MAPS } from './types';
+import { BACKEND_URL } from './backendUrl';
 export const setTasksLoading = () => {
     return {
         type: 'TASKS_LOADING'
@@ -9,7 +10,7 @@ export const setTasksLoading = () => {
 export const getTasks = (username) => dispatch => {
     // dispatch(setTasksLoading());
     axios
-        .get(`api/taskInstances/${username}`) //gives response
+        .get(`${BACKEND_URL}/api/taskInstances/${username}`) //gives response
         .then(res => 
             dispatch({
                 type: GET_TASKS,
@@ -21,7 +22,7 @@ export const getTasks = (username) => dispatch => {
 export const getTodaysTasks = (username) => dispatch => {
     console.log('getTodaysTasksCalled')
     axios
-        .get(`api/taskInstances/today/${username}`)
+        .get(`${BACKEND_URL}/api/taskInstances/today/${username}`)
         .then(res =>
             dispatch({
                 type: GET_TASKS,
@@ -39,7 +40,7 @@ export const getTodaysTasks = (username) => dispatch => {
 export const getDateTasks = (username, date) => dispatch => {
     console.log('reached getDateTasks action')
     axios
-        .get(`/api/taskInstances/date/${username}/${date}`)
+        .get(`${BACKEND_URL}/api/taskInstances/date/${username}/${date}`)
         .then(res => dispatch({
             type: GET_TASKS,
             payload: res.data
@@ -49,7 +50,7 @@ export const getDateTasks = (username, date) => dispatch => {
 
 export const addTask = (taskData) => dispatch => { //CHANGE: check that res is good before adding to state with dispatch
     axios
-        .post('/api/taskInstances', taskData)
+        .post(`${BACKEND_URL}/api/taskInstances`, taskData)
         .then(res => 
             dispatch({
                 type: ADD_TASK,
@@ -60,7 +61,7 @@ export const addTask = (taskData) => dispatch => { //CHANGE: check that res is g
 
 export const deleteTask = (id) => dispatch => {
     axios
-        .delete(`/api/taskInstances/${id}`)
+        .delete(`${BACKEND_URL}/api/taskInstances/${id}`)
         .then(res => {
             console.log(id)
             console.log(res)
