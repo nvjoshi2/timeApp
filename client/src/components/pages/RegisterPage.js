@@ -27,6 +27,9 @@ const RegisterPage = (props) => {
     const hasSpecialCharacter = (str) => {
         return /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
     }
+    const hasNumber = (str) => {
+        return /\d/.test(str)
+    }
     const addUser = (username, password, email) => {
         const credentials = {
             username,
@@ -38,7 +41,11 @@ const RegisterPage = (props) => {
             return
         }
         if(!hasSpecialCharacter(password)) {
-            setPasswordMessage('password must contain a special character');
+            setPasswordMessage('password must contain at least one special character');
+            return
+        }
+        if(!hasNumber(password)) {
+            setPasswordMessage('password must contain at least one number');
             return
         }
 
@@ -46,7 +53,7 @@ const RegisterPage = (props) => {
             setPasswordMessage('need email and password');
             return
         }
-
+        // return
         axios.post(`${BACKEND_URL}/api/users/register`, credentials)
             .then(res => {
                 dispatch(logIn(username, password))

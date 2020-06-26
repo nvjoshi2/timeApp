@@ -38,7 +38,7 @@ router.get('/:username', (req,res) => {
 
 router.post('/register', (req,res) => {
     console.log('attempted registration')
-    console.log(req.body.password)
+    // console.log(req.body.password)
     const [hash, salt, iterations] = hashPassword(req.body.password)
     const newUser = new User({
         username: req.body.username,
@@ -76,7 +76,7 @@ router.post('/login', (req, res) => {
     User.findOne({username: req.body.username})
         .then(user => {
             if (!user) {
-                console.log(req.body)
+                // console.log(req.body)
                 res.status(404).json({success:false})
             } else {
                 if (checkPassword(user.hash, user.salt, user.iterations, req.body.password)) {

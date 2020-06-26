@@ -41,8 +41,8 @@ app.use('/api/taskInstances', taskInstancesRouter);
 // }
 // app.use(express.static(path.join(__dirname, "client/build")));
 // const port = process.env.PORT || 5000;
-const port = 3000
-// const port = 5000
+// const port = 3000
+const port = 5000
 // console.log(port)
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
